@@ -1,4 +1,4 @@
-name: application
+name: AzureFunctions.Http
 on:
   push:
     branches:
