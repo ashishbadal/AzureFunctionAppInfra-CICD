@@ -11,9 +11,11 @@ on:
   workflow_dispatch:
 
 env:
-  FUNCTION_APP_NAME: myfirstfunctionapp-fa-ab
+  FUNCTION_APP_NAME_1: myfirstfunctionapp-fa-ab
+  FUNCTION_APP_NAME_2: ab-af-app-Http
+  FUNCTION_APP_NAME_3: ab-af-app-blob
   LOCATION: westeurope
-  RESOURCE_GROUP_NAME: myfirstfunction-rg
+  RESOURCE_GROUP_NAME: ab-af-rg
   STORAGE_ACCOUNT_NAME: myfirstfunctionstab
   
 jobs:
@@ -53,7 +55,31 @@ jobs:
       with:
         inlineScript: |
           az functionapp create \
-            --name ${{ env.FUNCTION_APP_NAME }} \
+            --name ${{ env.FUNCTION_APP_NAME_1 }} \
+            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
+            --consumption-plan-location ${{ env.LOCATION }} \
+            --storage-account ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --runtime dotnet \
+            --os-type Windows \
+            --functions-version 3
+    - name: Create Function App
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az functionapp create \
+            --name ${{ env.FUNCTION_APP_NAME_2 }} \
+            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
+            --consumption-plan-location ${{ env.LOCATION }} \
+            --storage-account ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --runtime dotnet \
+            --os-type Windows \
+            --functions-version 3
+    - name: Create Function App
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az functionapp create \
+            --name ${{ env.FUNCTION_APP_NAME_3 }} \
             --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
             --consumption-plan-location ${{ env.LOCATION }} \
             --storage-account ${{ env.STORAGE_ACCOUNT_NAME }} \
