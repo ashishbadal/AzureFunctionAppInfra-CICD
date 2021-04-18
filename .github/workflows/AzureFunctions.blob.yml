@@ -1,21 +1,21 @@
-name: MyFirstAzureFunction
+name: AzureFunctions.blob
 on:
   push:
     branches:
       - main
     paths:
-    - 'src/MyFirstAzureFunction/**'
+    - 'src/AzureFunctions.blob/**'
   pull_request:
     branches:
       - main
     paths:
-    - 'src/MyFirstAzureFunction/**'
+    - 'src/AzureFunctions.blob/**'
   workflow_dispatch:
   
 
 env:
   FUNCTION_APP_NAME: myfirstfunctionapp-fa-ab
-  FUNCTION_APP_PACKAGE_PATH: '/src/MyFirstAzureFunction'
+  FUNCTION_APP_PACKAGE_PATH: '/src/AzureFunctions.blob'
   RESOURCE_GROUP_NAME: myfirstfunction-rg
   DOTNET_VERSION: '3.1.404'
 
@@ -55,5 +55,5 @@ jobs:
             --name ${{ env.FUNCTION_APP_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
             --settings \
-              "Message.Success=This HTTP triggered function executed successfully." \
-              "Message.Fail=Pass a name in the query string or in the request body for a personalized response."
+              "AzureWebJobsStorage=${{ secrets.AZURE_AzureWebJobsStorage }}" \
+              "StorageAccount=${{ secrets.AZURE_StorageAccount }}"

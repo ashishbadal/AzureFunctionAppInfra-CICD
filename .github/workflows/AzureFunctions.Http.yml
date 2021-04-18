@@ -1,21 +1,21 @@
-name: MyFirstAzureFunction
+name: AzureFunctions.Http
 on:
   push:
     branches:
       - main
     paths:
-    - 'src/MyFirstAzureFunction/**'
+    - 'src/AzureFunctions.Http/**'
   pull_request:
     branches:
       - main
     paths:
-    - 'src/MyFirstAzureFunction/**'
+    - 'src/AzureFunctions.Http/**'
   workflow_dispatch:
   
 
 env:
   FUNCTION_APP_NAME: myfirstfunctionapp-fa-ab
-  FUNCTION_APP_PACKAGE_PATH: '/src/MyFirstAzureFunction'
+  FUNCTION_APP_PACKAGE_PATH: '/src/AzureFunctions.Http'
   RESOURCE_GROUP_NAME: myfirstfunction-rg
   DOTNET_VERSION: '3.1.404'
 
@@ -47,13 +47,3 @@ jobs:
       with:
         app-name: ${{ env.FUNCTION_APP_NAME }}
         package: './${{ env.FUNCTION_APP_PACKAGE_PATH }}/output'
-    - name: Set App Settings
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-          az functionapp config appsettings set \
-            --name ${{ env.FUNCTION_APP_NAME }} \
-            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-            --settings \
-              "Message.Success=This HTTP triggered function executed successfully." \
-              "Message.Fail=Pass a name in the query string or in the request body for a personalized response."
