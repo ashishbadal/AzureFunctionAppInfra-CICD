@@ -11,9 +11,9 @@ using System.Net.Http;
 
 namespace AB.Demo
 {
-    public static class HelloWorldHttpTrigger
+    public static class HelloWorldHttpTriggerHttp
     {
-        [FunctionName(nameof(HelloWorldHttpTrigger))]
+        [FunctionName(nameof(HelloWorldHttpTriggerHttp))]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Get), nameof(HttpMethod.Post),Route = null)] HttpRequestMessage req,
             ILogger log)
