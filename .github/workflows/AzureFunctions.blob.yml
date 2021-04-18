@@ -1,4 +1,4 @@
-name: application
+name: AzureFunctions.blob
 on:
   push:
     branches:
