@@ -1,4 +1,4 @@
-name: application
+name: MyFirstAzureFunction
 on:
   push:
     branches:
