@@ -19,5 +19,6 @@ namespace AB.Demo.Models
         
         [JsonProperty("region")]
         public string Region { get; set; }
+        
     }
 }
