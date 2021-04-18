@@ -1,5 +1,5 @@
 ###
-GET http://localhost:7071/api/HelloWorldHttpTrigger?name=Ada
+GET http://localhost:7071/api/HelloWorldHttpTrigger?name=AshishBadal
 
 ###
 
@@ -7,5 +7,5 @@ POST http://localhost:7071/api/HelloWorldHttpTrigger
 Content-Type: application/json
 
 {
-    "name" : "Grace"
+    "name" : "Ashish Badal"
 }
