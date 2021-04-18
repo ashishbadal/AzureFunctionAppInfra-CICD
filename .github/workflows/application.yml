@@ -18,6 +18,8 @@ env:
 jobs:
   Application:
     runs-on: ubuntu-latest
+    environment: 
+      name: Dev
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@main
