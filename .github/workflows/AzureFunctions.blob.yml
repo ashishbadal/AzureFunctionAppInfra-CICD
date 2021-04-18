@@ -14,9 +14,9 @@ on:
   
 
 env:
-  FUNCTION_APP_NAME: myfirstfunctionapp-fa-ab
+  FUNCTION_APP_NAME: ab-af-app-blob
   FUNCTION_APP_PACKAGE_PATH: '/src/AzureFunctions.blob'
-  RESOURCE_GROUP_NAME: myfirstfunction-rg
+  RESOURCE_GROUP_NAME: ab-af-rg
   DOTNET_VERSION: '3.1.404'
 
 jobs:
