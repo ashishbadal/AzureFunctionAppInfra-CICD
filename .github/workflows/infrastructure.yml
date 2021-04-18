@@ -1,0 +1,66 @@
+name: infrastructure
+on:
+  push:
+    branches:
+      - main
+    paths:
+    - '.github/workflows/infrastructure.yml'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  FUNCTION_APP_NAME: myfirstfunctionapp-fa-ab
+  LOCATION: westeurope
+  RESOURCE_GROUP_NAME: myfirstfunction-rg
+  STORAGE_ACCOUNT_NAME: myfirstfunctionstab
+  
+jobs:
+  Infrastructure-Dev:
+    runs-on: ubuntu-latest
+    environment: 
+      name: Dev
+      url: "http://dev.ab.com"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
+    - name: Create Resource Group
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az group create \
+            --name ${{ env.RESOURCE_GROUP_NAME }} \
+            --location ${{ env.LOCATION }} \
+            --tags type=temp
+    - name: Create Storage Account
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az storage account create \
+            --name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
+            --location ${{ env.LOCATION }} \
+            --sku Standard_LRS \
+            --kind StorageV2 \
+            --access-tier Hot
+    - name: Create Function App
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az functionapp create \
+            --name ${{ env.FUNCTION_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
+            --consumption-plan-location ${{ env.LOCATION }} \
+            --storage-account ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --runtime dotnet \
+            --os-type Windows \
+            --functions-version 3
+            
+
+
+            
